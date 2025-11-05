@@ -4,9 +4,19 @@ import { sculptureList } from './data.js';
 export default function Gallery() {
   const [index, setIndex] = useState(0);
   const [showMore, setShowMore] = useState(false);
+  let hasNext = index < (sculptureList.length-1);
+  let hasPrev = index != 0
 
   function handleNextClick() {
-    setIndex(index + 1);
+    if(hasNext){
+      setIndex(index + 1);
+    }
+  }
+  function handlePreviousClick(){
+    if(hasPrev){
+          setIndex(index - 1)
+    }
+
   }
 
   function handleMoreClick() {
@@ -16,8 +26,11 @@ export default function Gallery() {
   let sculpture = sculptureList[index];
   return (
     <>
-      <button onClick={handleNextClick}>
+      <button onClick={handleNextClick} disabled={!hasNext}>
         Siguiente
+      </button>
+      <button onClick={handlePreviousClick} disabled={!hasPrev}>
+        Anterior
       </button>
       <h2>
         <i>{sculpture.name} </i> 
